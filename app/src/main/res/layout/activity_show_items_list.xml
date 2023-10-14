@@ -4,31 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ShowItemsListActivity">
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="50dp"
+        android:id="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        />
+    <EditText
+        android:id="@+id/addNewItemInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Add new Item"
+        android:textColor="@color/black"
+        android:paddingEnd="35dp"
+        android:inputType="textCapWords"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@id/saveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        />
 
     <ImageView
-        android:id="@+id/addNewCategoryImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_add_circle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/saveButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/ic_send"
+
+        />
 
     <TextView
         android:id="@+id/noneResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You don´t any have category list"
+        android:text="You don´t any item in this list"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,4 +54,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

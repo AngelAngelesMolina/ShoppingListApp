@@ -14,13 +14,13 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         getSupportActionBar().hide(); //Hide the action bar
-new Handler().postDelayed(new Runnable() {
-    @Override
-    public void run() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finish();
-    }
-},2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+        }, 2000);
 
     }
 }
