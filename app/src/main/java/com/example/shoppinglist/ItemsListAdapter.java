@@ -1,6 +1,7 @@
 package com.example.shoppinglist;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglist.db.Category;
+import com.example.shoppinglist.db.Items;
 
 import java.util.List;
 
 public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Category> categoryList;
-    private HandleCategoryClick clickListener;
+    private List<Items> itemsList;
+    private HandleItemClick clickListener;
 
-    public ItemsListAdapter(Context context, HandleCategoryClick clickListener) {
+    public ItemsListAdapter(Context context, HandleItemClick clickListener) {
         this.context = context;
         this.clickListener = clickListener;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void setCategoryList(List<Items> itemsList) {
+        this.itemsList = itemsList;
         notifyDataSetChanged();
     }
 
@@ -39,53 +41,58 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull ItemsListAdapter.MyViewHolder holder, int position) {
-        holder.tvCategoryName.setText(this.categoryList.get(position).categoryName);
+        holder.tvItemName.setText(this.itemsList.get(position).itemName);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.itemClick(categoryList.get(position));
+                clickListener.itemClick(itemsList.get(position));
             }
         });
         holder.editCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.editItem(categoryList.get(position));
+                clickListener.editItem(itemsList.get(position));
             }
         });
         holder.removeCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.removeItem(categoryList.get(position));
+                clickListener.removeItem(itemsList.get(position));
             }
         });
+        if(this.itemsList.get(position).completed){
+            holder.tvItemName.setPaintFlags(holder.tvItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }else{
+            holder.tvItemName.setPaintFlags(0);
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (categoryList == null || categoryList.size() == 0)
+        if (itemsList == null || itemsList.size() == 0)
             return 0;
         else
-            return categoryList.size();
+            return itemsList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCategoryName;
+        TextView tvItemName;
         ImageView removeCategory;
         ImageView editCategory;
 
         public MyViewHolder(View view) {
             super(view);
-            tvCategoryName = view.findViewById(R.id.tvCategoryName);
+            tvItemName = view.findViewById(R.id.tvCategoryName);
             removeCategory = view.findViewById(R.id.removeCategory);
             editCategory = view.findViewById(R.id.editCategory);
         }
     }
 
-    public interface HandleCategoryClick {
-        void itemClick(Category category);
+    public interface HandleItemClick {
+        void itemClick(Items item);
 
-        void removeItem(Category category);
+        void removeItem(Items item);
 
-        void editItem(Category category);
+        void editItem(Items item);
     }
 }
